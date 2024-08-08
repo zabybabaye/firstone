@@ -9,7 +9,6 @@ metadata:
   links:
     - url: https://github.com/zabybabaye/firstone
     title: GitHub Repo
-    icon: github
   tags:
     - go
 spec:
