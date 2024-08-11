@@ -11,6 +11,7 @@ metadata:
       title: GitHub Repo
   tags:
     - go
+    - nfl
 spec:
   type: service
   lifecycle: production
