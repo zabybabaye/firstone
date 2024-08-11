@@ -8,7 +8,7 @@ metadata:
     category: music
   links:
     - url: https://github.com/zabybabaye/firstone
-    title: GitHub Repo
+      title: GitHub Repo
   tags:
     - go
 spec:
