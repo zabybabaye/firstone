@@ -1,55 +1,78 @@
-package com.example.governance.seed;
+package com.example.payments.api;
 
-import java.util.List;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 
-public class PaymentDataExposedRuleSeeder {
+@RestController
+public class PaymentController {
 
-    public List<GovernanceRule> getRules() {
-        return List.of(
-            createRuleForAnyRepository(
-                "Payment Data Exposed by an API",
-                GovernanceRuleCategory.WEAKNESS,
-                List.of("Penetration Testing", "Compliance Review (PCI)"),
-                new RulePortionWithSubType<>(
-                    GovernanceWhenType.SENSITIVE_DATA,
-                    SensitiveDataType.PAYMENTS.name(),
-                    CodeGovernanceKeys.EXPOSED
-                ),
-                "Payment data is exposed in an API",
-                createRiskAction(RiskLevel.HIGH),
-                createLabelAction(GovernanceThenSubType.ADDED, "Payment data exposed by an API")
-            )
-        );
+    @GetMapping("/api/payments/{paymentId}")
+    public PaymentResponse getPayment(@PathVariable String paymentId) {
+        PaymentResponse response = new PaymentResponse();
+        response.setPaymentId(paymentId);
+        response.setCardholderName("John Doe");
+        response.setCreditCardNumber("4111111111111111");
+        response.setCvv("123");
+        response.setExpirationMonth("12");
+        response.setExpirationYear("2030");
+        return response;
     }
 
-    // --- Helper methods (mocked for example) ---
+    public static class PaymentResponse {
+        private String paymentId;
+        private String cardholderName;
+        private String creditCardNumber;
+        private String cvv;
+        private String expirationMonth;
+        private String expirationYear;
 
-    private GovernanceRule createRuleForAnyRepository(
-            String name,
-            GovernanceRuleCategory category,
-            List<String> processTags,
-            RulePortionWithSubType<GovernanceWhenType, String> when,
-            String description,
-            RiskAction riskAction,
-            LabelAction labelAction
-    ) {
-        return new GovernanceRule(
-                name,
-                category,
-                "ANY", // Repository = Any
-                processTags,
-                when,
-                description,
-                riskAction,
-                labelAction
-        );
-    }
+        public String getPaymentId() {
+            return paymentId;
+        }
 
-    private RiskAction createRiskAction(RiskLevel level) {
-        return new RiskAction(level);
-    }
+        public void setPaymentId(String paymentId) {
+            this.paymentId = paymentId;
+        }
 
-    private LabelAction createLabelAction(GovernanceThenSubType type, String label) {
-        return new LabelAction(type, label);
+        public String getCardholderName() {
+            return cardholderName;
+        }
+
+        public void setCardholderName(String cardholderName) {
+            this.cardholderName = cardholderName;
+        }
+
+        public String getCreditCardNumber() {
+            return creditCardNumber;
+        }
+
+        public void setCreditCardNumber(String creditCardNumber) {
+            this.creditCardNumber = creditCardNumber;
+        }
+
+        public String getCvv() {
+            return cvv;
+        }
+
+        public void setCvv(String cvv) {
+            this.cvv = cvv;
+        }
+
+        public String getExpirationMonth() {
+            return expirationMonth;
+        }
+
+        public void setExpirationMonth(String expirationMonth) {
+            this.expirationMonth = expirationMonth;
+        }
+
+        public String getExpirationYear() {
+            return expirationYear;
+        }
+
+        public void setExpirationYear(String expirationYear) {
+            this.expirationYear = expirationYear;
+        }
     }
 }
